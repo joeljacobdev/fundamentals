@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import List, Dict
 
 
@@ -81,6 +82,16 @@ class ArrayUnionFind:
             x = next_x
 
         return root
+
+    def get_clusters(self) -> List[List[int]]:
+        """
+        :return: Return list of clusters
+        """
+        cluster_map = defaultdict(list)
+        for element, parent in self.parents:
+            parent = self.find(element)
+            cluster_map[parent].append(element)
+        return list(cluster_map.values())
 
     def connected(self, x: int, y: int) -> bool:
         fx = self.find(x)
