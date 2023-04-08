@@ -1,6 +1,5 @@
 from typing import List
 
-
 class Search:
     @classmethod
     def binary_search(cls, nums: List[int], target: int) -> int:
@@ -49,6 +48,11 @@ class Search:
                 end = mid - 1
             else:
                 start = mid
+        # in case the value is less than 0th index - we return -1.
+        # above section of algo copies bisect_left - which find the left index to insert the value
+        # in case no exact match of value is found
+        if start == 0 and nums[start] > target:
+            return -1
         return start
 
     @classmethod
