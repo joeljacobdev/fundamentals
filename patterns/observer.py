@@ -49,8 +49,8 @@ b1 = Broadcaster(None)
 b1.subscribe(ob1)
 b1.subscribe(ob2)
 
-b1.notify('event1')
-b1.notify('event2')
+b1.notify({'type': 'event1'})
+b1.notify({'type': 'event2'})
 
 # Subject(model) triggers  a event, which inform the connected receiver functions
 # named each signal - responsible for communication between subject and receiver
