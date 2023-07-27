@@ -1,17 +1,20 @@
 import inspect
 import functools
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def logging_decorator(cls):
     # we modify behaviour by dynamically creating subclasses. Parent class here is dynamic.
     class Wrapped(cls):
         def __init__(self, *args, **kwargs):
-            print(f'Before {type(cls)}.__init__ {args} {kwargs}')
+            logger.info(f'Before {type(cls)}.__init__ {args} {kwargs}')
             super().__init__(*args, **kwargs)
-            print(f'After {type(cls)}.__init__')
+            logger.info(f'After {type(cls)}.__init__')
 
         def __call__(self, *args, **kwargs):
-            print(f"{type(cls)}.__call__")
+            logger.info(f"{type(cls)}.__call__")
             result = super().__call__(*args, **kwargs)
             return result
 
@@ -38,7 +41,6 @@ def rate_limiter(limit):
                     if self.rate == limit:
                         raise Exception('Rate is limited')
                     self.rate += 1
-                    print(self.rate)
                     return method(*args, **kwargs)
 
                 return wrapper
@@ -50,13 +52,13 @@ def rate_limiter(limit):
 
 @rate_limiter(limit=3)
 @logging_decorator
-class MyClass(object):
+class MyClass:
     def __init__(self, a, b=None):
         self.a = a
-        print('MyClass ', a, b, type(self))
+        logger.info('MyClass ', a, b, type(self))
 
     def __call__(self):
-        print("MyClass.__call__")
+        logger.info("MyClass.__call__")
         return self.a
 
 
@@ -70,4 +72,4 @@ a = MyClass(1, 2)
 a()
 a()
 a()
-a()
+# a()
