@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any
 
 
 # build complex objects having chaining of methods
@@ -20,8 +20,8 @@ class QueryBuilder:
         self._select_fields.extend(fields)
         return self
 
-    def filter(self, filter_dict: dict):
-        for field, value in filter_dict.items():
+    def filter(self, **filters: Any):
+        for field, value in filters.items():
             tokens = field.split('__')
             field_identifier = tokens[0]
             if len(tokens) == 1:
@@ -29,7 +29,7 @@ class QueryBuilder:
             else:
                 op = tokens[-1]
             if isinstance(value, list):
-                value = tuple(value)
+                value = f"({','.join(map(str, value))})"
             self._filters[field_identifier] = (op, value)
         return self
 
@@ -46,5 +46,5 @@ class QueryBuilder:
         return sql
 
 
-sql = QueryBuilder().filter({'community_user__in': [1, 4, 5], 'current_course': 3}).prepare_sql()
+sql = QueryBuilder().set_table('students').filter(community_user__in=[5], current_course=3).prepare_sql()
 print(sql)
