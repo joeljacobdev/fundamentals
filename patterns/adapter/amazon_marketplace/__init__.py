@@ -1,0 +1,1 @@
+from ._client import AmazonMarketplaceClientV4 as Client

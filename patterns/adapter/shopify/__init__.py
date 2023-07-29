@@ -1,0 +1,1 @@
+from ._client import ShopifyMarketplaceClient as Client
