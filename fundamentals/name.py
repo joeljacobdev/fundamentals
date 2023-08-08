@@ -1,3 +1,6 @@
+# values imported changes as object changes
+from _name import my_values, print_my_values, my_val, print_my_val
+
 print(id(2000000))
 print(id(2000000))
 a = 2000000
@@ -83,12 +86,10 @@ print('--- string ---')
 print('my string' is 'my string')
 print(('my string' + 'a') is ('my string' + 'a'))
 
-# values imported changes as object changes
-from test.data import my_value, print_my_value, my_val, print_my_val
-
-print(my_value)
-my_value[0] = 11
-print_my_value()
+"""Imported values"""
+print(my_values)
+my_values[0] = 11
+print_my_values()
 
 # but why no changes observed with my_val like in case of my_value?
 # from shared_stuff import a would create a new a variable initialized to whatever

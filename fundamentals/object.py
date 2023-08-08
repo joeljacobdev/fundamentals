@@ -43,6 +43,7 @@ print(a)
 # to a completely new object), the changes will live beyond the scope of the function
 def fun(a):
     a[2] = "nothing"
+    # only the name "a" in local namespace point to the reassigned array
     a = ['one']
 
 
