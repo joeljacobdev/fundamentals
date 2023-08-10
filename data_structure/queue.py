@@ -4,6 +4,7 @@ from collections import deque
 
 class list_queue:
     __slots__ = ('list_queue',)
+
     def __init__(self):
         self.list_queue: List[int] = []
 
@@ -19,6 +20,7 @@ class list_queue:
     def __str__(self):
         return ', '.join(map(str, self.list_queue))
 
+
 q1 = list_queue()
 q1.append(1)
 q1.append(2)
@@ -32,8 +34,6 @@ print(q1.popleft())
 print(q1.popleft())
 print(q1.popleft())
 print(q1.popleft())
-
-
 
 q2 = deque()
 q2.append(1)

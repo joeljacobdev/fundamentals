@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Search:
     @classmethod
     def binary_search(cls, nums: List[int], target: int) -> int:
@@ -75,9 +76,9 @@ class Search:
             mid = start + (end - start) // 2
             if target == nums[mid]:
                 return mid
-            elif nums[start] > nums[mid] and not (nums[mid] < target and target <= nums[end]):
+            elif nums[start] > nums[mid] and not (nums[mid] < target <= nums[end]):
                 end = mid - 1
-            elif nums[mid] > nums[end] and not (target < nums[mid] and nums[start] <= target):
+            elif nums[mid] > nums[end] and not (nums[mid] > target >= nums[start]):
 
                 start = mid + 1
             elif target < nums[mid]:
