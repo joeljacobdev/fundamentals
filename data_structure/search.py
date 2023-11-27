@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Search:
     @classmethod
     def binary_search(cls, nums: List[int], target: int) -> int:
@@ -33,6 +34,22 @@ class Search:
         return end
 
     @classmethod
+    def _intuition_binary_search_equal_or_next(cls, arr, target):
+        lo, hi = 0, len(arr) - 1
+        best_candidate = -1
+        while lo <= hi:
+            mid = lo + (hi - lo) // 2
+            if arr[mid] == target:
+                best_candidate = mid
+                break
+            elif arr[mid] > target:
+                best_candidate = mid
+                hi = mid - 1
+            else:
+                lo = mid - 1
+        return best_candidate
+
+    @classmethod
     def binary_search_equal_or_smaller(cls, nums: List[int], target: int) -> int:
         """
         It will return the smaller value in case equal value is not present.
@@ -56,6 +73,22 @@ class Search:
         return start
 
     @classmethod
+    def _intuition_binary_search_equal_or_smaller(cls, arr, target):
+        lo, hi = 0, len(arr) - 1
+        best_candidate = -1
+        while lo <= hi:
+            mid = lo + (hi - lo) // 2
+            if arr[mid] == target:
+                best_candidate = mid
+                break
+            elif arr[mid] < target:
+                best_candidate = mid
+                lo = mid + 1
+            else:
+                hi = mid - 1
+        return best_candidate
+
+    @classmethod
     def linear_search(cls, nums: List[int], target: int) -> int:
         for idx, num in enumerate(nums):
             if target == num:
@@ -75,10 +108,9 @@ class Search:
             mid = start + (end - start) // 2
             if target == nums[mid]:
                 return mid
-            elif nums[start] > nums[mid] and not (nums[mid] < target and target <= nums[end]):
+            elif nums[start] > nums[mid] and not (nums[mid] < target <= nums[end]):
                 end = mid - 1
-            elif nums[mid] > nums[end] and not (target < nums[mid] and nums[start] <= target):
-
+            elif nums[mid] > nums[end] and not (nums[mid] > target >= nums[start]):
                 start = mid + 1
             elif target < nums[mid]:
                 end = mid - 1
