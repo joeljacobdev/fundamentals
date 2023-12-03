@@ -1,73 +1,124 @@
-class LRUCache:
-    class Node:
-        def __init__(self, key, val, nxt=None, prev=None):
-            self.key = key
-            self.val = val
-            self.next = nxt
-            self.prev = prev
+import abc
+from typing import Dict
 
-    def __init__(self, capacity: int):
-        self.head = None
-        self.tail = None
-        self.storage = {}
-        self.capacity = capacity
 
-    def _mark_recently_used(self, key):
+class DLLNode:
+    def __init__(self, val, next=None, prev=None):
+        self.val = val
+        self.next = next
+        self.prev = prev
+
+
+class DoublyLinkedList:
+
+    def __init__(self):
+        self.__head = None
+        self.__tail = None
+
+    def head(self):
+        return self.__head
+
+    def tail(self):
+        return self.__tail
+
+    def append(self, node):
         """
-        Mark the :key are recently used, by moving it to end of recency list.
-        :param key:
-        :return:
+        Add to the tail
         """
-        if self.tail.key == key or len(self.storage.keys()) <= 1:
-            return
-        node = self.storage[key]
-        if node.key == self.head.key:
-            self.head = self.head.next
-        else:
-            node.prev.next = node.next
-        node.next.prev = node.prev
-
-        self.tail.next = node
+        curr = self.__tail
+        curr.next = node
+        node.prev = curr
         node.next = None
+        self.__tail = node
 
-        node.prev = self.tail
-        self.tail = self.tail.next
-
-    def get(self, key: int) -> int:
-        ans = self.storage.get(key)
-        if ans:
-            self._mark_recently_used(key)
-
-        return ans.val if ans else -1
-
-    def put(self, key: int, value: int) -> None:
-        if len(self.storage.keys()) == self.capacity and not self.storage.get(key):
-            self._remove_least_recently_used()
-
-        if not self.storage.get(key):
-            self.storage[key] = self.Node(key=key, val=value, prev=self.tail)
-            if not self.head:
-                self.head = self.storage[key]
-                self.tail = self.storage[key]
-            else:
-                self.tail.next = self.storage[key]
-                self.tail = self.storage[key]
-        else:
-            self._mark_recently_used(key)
-            self.storage[key].val = value
-
-    def _remove_least_recently_used(self):
+    def delete(self, node):
         """
-        When cache is filled, we remove the least recently used node - i.e.
-        first of linkedlist which contain the recency of node's usage. We only need to evict cache when the new entry
-        not present in the cache. It is not needed when we overwrite the value.
-        :return:
+        Handles deletion - at any place. Updates head and tail
         """
-        node_to_remove = self.head.key
-        if self.head == self.tail:
-            self.head = self.tail = None
+        if self.__tail == self.__head == node:
+            self.__head = None
+            self.__tail = None
+        elif node == self.__head:
+            self.__head = self.__head.next
+            self.__head.prev = None
+        elif node == self.__tail:
+            self.__tail = self.__tail.prev
+            self.__tail.next = None
         else:
-            self.head = self.head.next
-            self.head.prev.next = None
-            self.head.prev = None
-        del self.storage[node_to_remove]
+            prev = node.prev
+            next = node.next
+            prev.next = next
+            next.prev = prev
+
+
+class EvictionPolicy(abc.ABC):
+    @abc.abstractmethod
+    def evict(self):
+        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def use(self, key):
+        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def is_full(self):
+        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def exists(self, key):
+        raise NotImplementedError()
+
+
+class LRUEvictionPolicy(EvictionPolicy):
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.recency_list = DoublyLinkedList()
+        self.__key_to_node_map: Dict[str, DLLNode] = {}
+
+    def evict(self):
+        """
+        Should be called when cache is full
+        """
+        head = self.recency_list.head()
+        self.recency_list.delete(head)
+        del self.__key_to_node_map[head.val]
+        return head.val
+
+    def use(self, key):
+        if key in self.__key_to_node_map:
+            node = self.__key_to_node_map[key]
+            self.recency_list.delete(node)
+        else:
+            node = DLLNode(val=key)
+            self.__key_to_node_map[key] = node
+        self.recency_list.append(node)
+
+    def is_full(self):
+        return len(self.__key_to_node_map.keys()) == self.capacity
+
+    def exists(self, key):
+        return self.__key_to_node_map.get(key) is not None
+
+
+class Cache:
+
+    def __init__(self, capacity, eviction_policy_class):
+        self._storage = {}
+        self.lock = False
+        self.eviction_policy = eviction_policy_class(capacity=capacity)
+
+    def put(self, key: str) -> None:
+        if self.lock:
+            return
+        self.lock = True
+        if self.eviction_policy.is_full() and not self.eviction_policy.exists(key):
+            evicted_key = self.eviction_policy.evict()
+            del self._storage[evicted_key]
+        self.eviction_policy.use(key)
+        self.lock = False
+        self._storage[key] = None
+
+    def get(self, key):
+        if key in self._storage:
+            self.eviction_policy.use(key)
+        return self._storage.get(key)
