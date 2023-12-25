@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class StringUsage {
     public static void main(String[] args) {
         String s1 = "\tHello1\n , world";
@@ -15,5 +19,11 @@ public class StringUsage {
         // why length() is function for String while for array it is property?
         // reverse is inplace
         System.out.println(sb.reverse().toString() + "--" + sb.substring(0, insertAt));
+        System.out.println("hello, world".startsWith("hell") + " " + "hello, world".endsWith("orld"));
+
+        int[] arr = {1, 3, 5};
+        List<String> result = Arrays.stream(arr).mapToObj(String::valueOf).collect(Collectors.toList());
+        System.out.println(String.join(" ", result));
+
     }
 }

@@ -1,5 +1,5 @@
 *.pyc
 .idea/
 .DS_Store
-temp.py
+temp.*
 out/

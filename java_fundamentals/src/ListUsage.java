@@ -15,7 +15,7 @@ public class ListUsage {
         String[] carArray = cars.toArray(new String[0]);
         System.out.println(cars + " " + carList + " " + Arrays.toString(carArray));
         Collections.sort(cars, Collections.reverseOrder());
-        Arrays.sort(carArray,  (o1, o2) -> o1.charAt(1) - o2.charAt(1));
+        Arrays.sort(carArray, (o1, o2) -> o1.charAt(1) - o2.charAt(1));
         System.out.println(cars.get(0) + " " + carList.get(0) + " " + carArray[0]);
         System.out.println(cars.size() + " " + carList.size() + " " + carArray.length);
         // we cannot use primitive types like - char, boolean, double in ArrayList and List - need objects like
@@ -41,5 +41,22 @@ public class ListUsage {
         for (int i = 0; i < vowels.length; i++) {
             System.out.print(vowels[i]);
         }
+        System.out.println();
+
+        int[][] matrix1 = new int[2][3];
+        matrix1[0][0] = 10;
+        int[][] matrix2 = {
+                {1, 2, 3},
+                {4, 5, 6}
+        };
+        System.out.println(Arrays.toString(matrix1) + " " + Arrays.toString(matrix2));
+
+        List<List<Integer>> arrOfArr = new ArrayList<List<Integer>>();
+        int size = 10;
+        for (int i = 0; i < size; i++) {
+            arrOfArr.add(new ArrayList<Integer>());
+            arrOfArr.get(i).add(i + 1);
+        }
+        System.out.println(arrOfArr);
     }
 }
