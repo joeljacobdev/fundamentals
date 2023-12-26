@@ -38,8 +38,9 @@ public class ListUsage {
             System.out.print(vowel);
         }
         System.out.println();
-        for (int i = 0; i < vowels.length; i++) {
-            System.out.print(vowels[i]);
+        char[] newArray = Arrays.copyOfRange(vowels, 1, vowels.length);
+        for (int i = 0; i < newArray.length; i++) {
+            System.out.print(newArray[i]);
         }
         System.out.println();
 
