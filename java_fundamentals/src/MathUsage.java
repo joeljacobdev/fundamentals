@@ -23,5 +23,7 @@ public class MathUsage {
         System.out.println(Math.abs(-1));
         System.out.println(Math.ceil(1.34));
         System.out.println(Math.floor(1.34));
+        // floor division - get int directly, no need for casting
+        System.out.println(Math.floorDiv(3, 2));
     }
 }
