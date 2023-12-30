@@ -1,8 +1,16 @@
+package fundamentals;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StringUsage {
+
+    private String sortString(String s) {
+        char[] arr = s.toCharArray();
+        Arrays.sort(arr);
+        return new String(arr);
+    }
     public static void main(String[] args) {
         String s1 = "\tHello1\n , world";
         String lowerHello = s1.split(",")[0].trim().toLowerCase();

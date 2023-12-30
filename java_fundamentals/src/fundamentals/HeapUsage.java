@@ -1,3 +1,5 @@
+package fundamentals;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
