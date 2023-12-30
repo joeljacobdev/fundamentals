@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+package fundamentals;
+
+import java.util.*;
 
 public class ListUsage {
     public static void main(String[] args) {
@@ -14,7 +13,7 @@ public class ListUsage {
         // understand why Object[] cannot be cast to String[], while Object is parent of String
         String[] carArray = cars.toArray(new String[0]);
         System.out.println(cars + " " + carList + " " + Arrays.toString(carArray));
-        Collections.sort(cars, Collections.reverseOrder());
+        Collections.sort(cars, Comparator.reverseOrder());
         Arrays.sort(carArray, (o1, o2) -> o1.charAt(1) - o2.charAt(1));
         System.out.println(cars.get(0) + " " + carList.get(0) + " " + carArray[0]);
         System.out.println(cars.size() + " " + carList.size() + " " + carArray.length);

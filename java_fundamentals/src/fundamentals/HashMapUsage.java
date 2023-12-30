@@ -1,3 +1,5 @@
+package fundamentals;
+
 import java.util.HashMap;
 
 public class HashMapUsage {
@@ -7,6 +9,7 @@ public class HashMapUsage {
         hm.put("USA", 2);
         hm.put("Australia", 4);
         hm.put("USA", 3);
+        hm.getOrDefault("XYZ", 6);
         System.out.println(hm.get("Japan") + " - " + hm.get("USA"));
         System.out.println(hm.size() + " - " + hm.containsKey("Japan") + " " + hm.containsValue(4));
         hm.remove("Australia");

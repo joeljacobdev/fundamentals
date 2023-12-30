@@ -1,3 +1,5 @@
+package fundamentals;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -7,7 +9,9 @@ public class DateUsage {
         LocalDate afterDate = LocalDate.now().plusDays(10);
         LocalDate beforeDate = LocalDate.now().minusDays(10);
         System.out.println(curr.equals(LocalDate.now()));
+        System.out.println(LocalDate.parse("2023-01-22"));
         System.out.println(afterDate.isAfter(curr));
+        System.out.println(beforeDate.isBefore(curr));
         System.out.println(beforeDate.isBefore(curr));
 
         LocalDateTime currTime = LocalDateTime.now();
