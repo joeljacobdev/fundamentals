@@ -1,3 +1,5 @@
+package fundamentals;
+
 import java.util.LinkedList;
 
 public class LinkedListUsage {

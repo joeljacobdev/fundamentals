@@ -1,3 +1,5 @@
+package fundamentals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -41,6 +43,7 @@ public class HashSetUsage {
         System.out.println(hs.contains(3) + " " + hs.size());
         hs.remove(1);
         System.out.println(hs);
+        hs.clear();
 
         HashSet<Coupon> hashObjs = new HashSet<>();
         hashObjs.addAll(Arrays.asList(

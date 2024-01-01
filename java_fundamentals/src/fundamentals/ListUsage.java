@@ -1,3 +1,5 @@
+package fundamentals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,7 +47,12 @@ public class ListUsage {
         System.out.println();
 
         int[][] matrix1 = new int[2][3];
+        for (int[] row: matrix1) {
+            // toIndex is not inclusive
+            Arrays.fill(row, 0, 3, -1);
+        }
         matrix1[0][0] = 10;
+        System.out.println(Arrays.toString(matrix1[0]) + " ++ " + Arrays.toString(matrix1[1]));
         int[][] matrix2 = {
                 {1, 2, 3},
                 {4, 5, 6}
