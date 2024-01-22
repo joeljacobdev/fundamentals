@@ -78,6 +78,7 @@ class TestValidator:
 
 obj = TestValidator('ddr2')
 print(obj.ram_type)
+# obj.ram_type = 'dd1' - this will raise error
 obj._ram_type = 'dd1'
 # it is not necessary to have private name, and we can avoid this case
 print(obj.ram_type)

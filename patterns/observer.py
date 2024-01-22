@@ -3,8 +3,7 @@ from typing import Dict
 
 
 class Broadcaster:
-    def __init__(self, instance):
-        self.instance = instance
+    def __init__(self):
         self._subscribers: Dict[str, Subscriber] = {}
 
     def subscribe(self, subscriber):
@@ -15,7 +14,7 @@ class Broadcaster:
 
     def notify(self, event: dict):
         for subscriber in self._subscribers.values():
-            subscriber.notify(self.instance, event)
+            subscriber.notify(self, event)
 
 
 class Subscriber:
@@ -36,6 +35,7 @@ class A:
         self.a = a
 
     def __str__(self, **kwargs):
+        print(kwargs)
         return f'{self.a} {kwargs}'
 
 
@@ -45,7 +45,7 @@ a2 = A(2)
 ob1 = Subscriber(instance=a1, notify_method='__str__')
 ob2 = Subscriber(instance=a2, notify_method='__str__')
 
-b1 = Broadcaster(None)
+b1 = Broadcaster()
 b1.subscribe(ob1)
 b1.subscribe(ob2)
 

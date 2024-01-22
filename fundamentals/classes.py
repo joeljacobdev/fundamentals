@@ -1,5 +1,6 @@
 class SampleClass:
-    class_var = 1
+    class_var1 = [1]
+    class_var2 = 1
 
     def __init__(self):
         self.instance_var = 1
@@ -8,9 +9,15 @@ class SampleClass:
 obj1 = SampleClass()
 obj2 = SampleClass()
 # This will create a class variable in the object 1 instance.
-obj1.class_var = 2
-print(obj2.class_var)
+obj1.class_var2 = 2
+print(obj2.class_var2)
+# obj1 will have "class_var2" attribute added, while "obj2" won't have
+print(obj1.__dict__, obj2.__dict__)
+SampleClass.class_var2 = 4
+print(obj2.class_var2)
+
+# But if it is a mutable object
+obj1.class_var1.append(2)
+print(obj2.class_var1)
 # obj1 will have "class_var" attribute added, while "obj2" won't have
 print(obj1.__dict__, obj2.__dict__)
-SampleClass.class_var = 4
-print(obj2.class_var)
