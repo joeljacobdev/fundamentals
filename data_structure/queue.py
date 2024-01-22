@@ -37,3 +37,4 @@ print(q1.popleft())
 
 q2 = deque()
 q2.append(1)
+q2.popleft()
