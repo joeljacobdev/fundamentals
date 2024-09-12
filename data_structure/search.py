@@ -46,7 +46,7 @@ class Search:
                 best_candidate = mid
                 hi = mid - 1
             else:
-                lo = mid - 1
+                lo = mid + 1
         return best_candidate
 
     @classmethod
