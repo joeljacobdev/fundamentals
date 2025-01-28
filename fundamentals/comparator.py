@@ -6,9 +6,9 @@ def compare_strings(x, y):
     if xy == yx:
         return 0
     elif xy < yx:
-        return -1
+        return 1 # meaning y should come before x in the sorted order. Order need to be swapped
     else:
-        return 1
+        return -1 # meaning y should come after x in the sorted order. ie no need to change the current order
 
 
 class CompareClass:
@@ -24,6 +24,6 @@ class CompareClass:
 arr = ['3', '30', '34', '5', '9', '0']
 # in python 3, cmp is removed, so we need to use cmp_to_key - to convert cmp function to key function
 # cmp function used to take 2 values to compare, while key function takes 1 value to compare
-print(sorted(arr, key=cmp_to_key(compare_strings), reverse=True))  # ['9', '5', '34', '3', '30', '0']
+print(sorted(arr, key=cmp_to_key(compare_strings)))  # ['9', '5', '34', '3', '30', '0']
 # this is equivalent to the above
-print(sorted([CompareClass(i, compare_strings) for i in arr], reverse=True))  # ['9', '5', '34', '3', '30', '0']
+print(sorted([CompareClass(i, compare_strings) for i in arr]))  # ['9', '5', '34', '3', '30', '0']

@@ -113,7 +113,7 @@ class Graph:
         :param node_no: Number of nodes
         :return: list of nodes in topological order
         """
-        # TODO: Can we detect cycle using this?
+        # We can detect cycles using this - but we need to maintain a separate set of nodes which we have visited in the current path
         adj_graph = defaultdict(list)
         for edge in edges:
             adj_graph[edge[0]].append(edge[1])

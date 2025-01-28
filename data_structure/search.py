@@ -108,6 +108,7 @@ class Search:
             mid = start + (end - start) // 2
             if target == nums[mid]:
                 return mid
+            # narrowing the range to check using elimination
             elif nums[start] > nums[mid] and not (nums[mid] < target <= nums[end]):
                 end = mid - 1
             elif nums[mid] > nums[end] and not (nums[mid] > target >= nums[start]):
