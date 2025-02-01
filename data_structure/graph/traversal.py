@@ -142,6 +142,8 @@ def topological_sort(graph):
         for nei, _ in graph[n]:
             if nei not in visited:
                 dfs(nei)
+        # We add the node to the ans - once we have processed all its dependencies
+        # i.e. all the nodes which can be traversed from this node `n`
         ans.append(n)
 
     for node in graph:
@@ -153,42 +155,8 @@ def topological_sort(graph):
     ans.reverse()
     return ans
 
-
-def topo_sort_with_cycle_detection(graph):
-    visited = set()  # Fully processed nodes
-    recStack = set()  # Nodes currently being explored
-    ans = []
-
-    def dfs(n):
-        # This means that in a given path we are visiting the same node again.
-        if n in recStack:  # Cycle detected
-            return False
-        # it is fine to re-visit to here from a different node - ie. reaching a same node from a different path
-        if n in visited:  # Already processed, skip
-            return True
-
-        # Mark node as being explored
-        recStack.add(n)
-
-        for nei, _ in graph[n]:  # Explore neighbors
-            if not dfs(nei):
-                return False  # If cycle found in DFS, propagate failure
-
-        # Mark node as fully processed
-        recStack.remove(n)
-        visited.add(n)
-        ans.append(n)
-        return True
-
-    for node in graph:
-        if node not in visited:
-            if not dfs(node):
-                return None  # Cycle detected, return None or raise an error
-
-    ans.reverse()
-    return ans
-
 def dag_shortest_path(graph, start):
+    # In processing nodes in order of this list - mean that for each node there are no remaining dependencies we need to process this node
     order = topological_sort(graph)
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
