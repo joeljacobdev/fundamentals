@@ -34,6 +34,12 @@ class UnionFind:
         yp = self.find(y)
         if xp == yp:
             return
+        # We can visualize this as that for 2 components with multiple node
+        # we select xp and yp as the parent for x and y.
+        # so if they are connected - we want to move one of the component under the other
+        # so we can have a custom rank per parent and based on it assign to the parent with smaller rank
+        # Here we have implicitly considered parent with smaller value having a smaller rank
+        # we connect the parent with higher rank (i.e value here) to the parent with lower rank (i.e lower value)
         if xp < yp:
             self.p[yp] = xp
         else:
