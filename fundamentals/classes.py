@@ -12,6 +12,9 @@ obj2 = SampleClass()
 obj1.class_var2 = 2
 print(obj2.class_var2)
 # obj1 will have "class_var2" attribute added, while "obj2" won't have
+# kind of having namespace isolation - instead of modifying the class value, create create an
+# instance variable overriding the original class variable for this object
+# Note - that class variables are not shown in the dict.
 print(obj1.__dict__, obj2.__dict__)
 SampleClass.class_var2 = 4
 print(obj2.class_var2)

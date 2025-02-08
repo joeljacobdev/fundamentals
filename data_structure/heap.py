@@ -21,6 +21,7 @@ class Employee:
         return f'{self.name} {self.yos}'
 
     def __lt__(self, nxt):
+        # it should return true if this is smaller than the next element
         # as heapq provide min heap impl. we override this.
         return self.yos < nxt.yos
 

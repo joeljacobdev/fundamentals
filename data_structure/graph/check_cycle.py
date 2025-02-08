@@ -28,6 +28,7 @@ def _dfs_check_cycle_in_directed_iterative(n, graph, visited, rec_stack):
     rec_stack.add(n)
 
     while stack:
+        # idx is used to emulate current child we are processing for this "curr" node
         curr, idx = stack.pop()
         if idx < len(graph[curr]):
             nei, _ = graph[curr][idx]

@@ -72,9 +72,10 @@ class Graph:
         # prepare adjacency list and compute in-degree
         adj_graph = defaultdict(list)
         in_degree = [0] * node_no
-        for edge in edges:
-            adj_graph[edge[0]].append(edge[1])
-            in_degree[edge[1]] += 1
+        # depending on the question - src and dest can be reversed
+        for src, dest in edges:
+            adj_graph[src].append(dest)
+            in_degree[dest] += 1
 
         queue = deque()
         leaves = [idx for idx, val in enumerate(in_degree) if val == 0]

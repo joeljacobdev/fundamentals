@@ -58,8 +58,6 @@ def test_singleton(value: str) -> None:
 
 
 if __name__ == "__main__":
-    # The client code.
-
     print("If you see the same value, then singleton was reused (yay!)\n"
           "If you see different values, "
           "then 2 singletons were created (booo!!)\n\n"
